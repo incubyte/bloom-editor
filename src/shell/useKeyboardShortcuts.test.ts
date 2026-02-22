@@ -1,6 +1,10 @@
-import { describe, test, expect, vi } from "vitest";
+import { describe, test, expect, vi, afterEach } from "vitest";
 import { renderHook } from "@testing-library/react";
-import { useKeyboardShortcuts } from "./useKeyboardShortcuts";
+import {
+  useKeyboardShortcuts,
+  registerKeyboardShortcut,
+  clearKeyboardShortcuts,
+} from "./useKeyboardShortcuts";
 
 describe("useKeyboardShortcuts", () => {
   test("calls onTogglePalette when Mod+K is pressed", () => {
@@ -49,5 +53,31 @@ describe("useKeyboardShortcuts", () => {
     );
 
     expect(handlers.onToggleSidebar).toHaveBeenCalledOnce();
+  });
+
+  test("registerKeyboardShortcut registers and fires custom shortcuts", () => {
+    afterEach(() => clearKeyboardShortcuts());
+
+    const customHandler = vi.fn();
+    registerKeyboardShortcut({
+      key: "j",
+      modifiers: { metaKey: true },
+      handler: customHandler,
+    });
+
+    const handlers = {
+      onTogglePalette: vi.fn(),
+      onNewDocument: vi.fn(),
+      onToggleSidebar: vi.fn(),
+    };
+
+    renderHook(() => useKeyboardShortcuts(handlers));
+
+    document.dispatchEvent(
+      new KeyboardEvent("keydown", { key: "j", metaKey: true }),
+    );
+
+    expect(customHandler).toHaveBeenCalledOnce();
+    clearKeyboardShortcuts();
   });
 });

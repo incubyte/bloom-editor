@@ -1,7 +1,7 @@
 import { save } from "@tauri-apps/plugin-dialog";
 import { writeTextFile } from "@tauri-apps/plugin-fs";
 import { toMarkdown } from "./markdownConverter";
-import { cleanHtml } from "./htmlExporter";
+import { getExportFormats } from "./exportFormats";
 
 interface TiptapNode {
   type: string;
@@ -21,26 +21,32 @@ export function deriveFilename(title: string): string {
   return sanitized || "Untitled";
 }
 
+function findFormatByPath(filePath: string) {
+  const formats = getExportFormats();
+  return formats.find((f) => filePath.endsWith(`.${f.extension}`));
+}
+
 export async function exportToFile(
   title: string,
   content: TiptapNode,
   rawHtml: string,
 ): Promise<ExportResult> {
   const filename = deriveFilename(title);
+  const formats = getExportFormats();
 
-  const filePath = await save({
-    defaultPath: filename,
-    filters: [
-      { name: "Markdown", extensions: ["md"] },
-      { name: "HTML", extensions: ["html"] },
-    ],
-  });
+  const filters = formats.map((f) => ({
+    name: f.name,
+    extensions: [f.extension],
+  }));
+
+  const filePath = await save({ defaultPath: filename, filters });
 
   if (!filePath) return "cancelled";
 
-  const output = filePath.endsWith(".html")
-    ? cleanHtml(rawHtml)
-    : toMarkdown(content);
+  const format = findFormatByPath(filePath);
+  const markdownFormat = formats.find((f) => f.extension === "md");
+  const converter = format ?? markdownFormat ?? formats[0];
+  const output = await converter.convert(content, rawHtml);
 
   await writeTextFile(filePath, output);
   return "exported";

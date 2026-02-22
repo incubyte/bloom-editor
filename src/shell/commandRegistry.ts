@@ -2,7 +2,8 @@ export type CommandCategory =
   | "formatting"
   | "document"
   | "navigation"
-  | "view";
+  | "view"
+  | "ai";
 
 export interface Command {
   id: string;
@@ -112,6 +113,10 @@ const COMMANDS: Command[] = [
     category: "document",
   },
 ];
+
+export function registerCommands(commands: Command[]) {
+  COMMANDS.push(...commands);
+}
 
 export function getAllCommands(): Command[] {
   return [...COMMANDS];

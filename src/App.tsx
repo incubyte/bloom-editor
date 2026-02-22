@@ -16,9 +16,16 @@ import {
 } from "./shell/commandRegistry";
 import { recordAction, getRecentActions } from "./shell/recentActions";
 import { useKeyboardShortcuts } from "./shell/useKeyboardShortcuts";
-import { exportToFile, copyAsMarkdown } from "./editor/exportService";
+import {
+  registerCoreHandlers,
+  getCommandHandler,
+} from "./shell/commandHandlers";
+import { usePluginSlots } from "./plugins/PluginContext";
+
+registerCoreHandlers();
 
 function App() {
+  const { toolbarSections, statusBarSections } = usePluginSlots();
   const { isZenMode, toggleZenMode, exitZenMode } = useZenMode();
   const { toggleTheme } = useTheme();
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
@@ -86,71 +93,18 @@ function App() {
       return;
     }
 
-    switch (commandId) {
-      case "new-document":
-        createNewDocument();
-        break;
-      case "toggle-sidebar":
-        toggleCollapse();
-        break;
-      case "toggle-zen-mode":
-        toggleZenMode();
-        break;
-      case "bold":
-        editor?.chain().focus().toggleBold().run();
-        break;
-      case "italic":
-        editor?.chain().focus().toggleItalic().run();
-        break;
-      case "heading-1":
-        editor?.chain().focus().toggleHeading({ level: 1 }).run();
-        break;
-      case "heading-2":
-        editor?.chain().focus().toggleHeading({ level: 2 }).run();
-        break;
-      case "heading-3":
-        editor?.chain().focus().toggleHeading({ level: 3 }).run();
-        break;
-      case "bullet-list":
-        editor?.chain().focus().toggleBulletList().run();
-        break;
-      case "ordered-list":
-        editor?.chain().focus().toggleOrderedList().run();
-        break;
-      case "code-block":
-        editor?.chain().focus().toggleCodeBlock().run();
-        break;
-      case "inline-code":
-        editor?.chain().focus().toggleCode().run();
-        break;
-      case "blockquote":
-        editor?.chain().focus().toggleBlockquote().run();
-        break;
-      case "undo":
-        editor?.chain().focus().undo().run();
-        break;
-      case "redo":
-        editor?.chain().focus().redo().run();
-        break;
-      case "toggle-dark-mode":
-        toggleTheme();
-        break;
-      case "export-file":
-        if (editor) {
-          const json = editor.getJSON();
-          const html = editor.getHTML();
-          exportToFile(activeTitle, json, html).then((result) => {
-            if (result === "exported") showTemporaryMessage("Exported!");
-          });
-        }
-        break;
-      case "copy-markdown":
-        if (editor) {
-          copyAsMarkdown(editor.getJSON()).then(() => {
-            showTemporaryMessage("Copied to clipboard!");
-          });
-        }
-        break;
+    const handler = getCommandHandler(commandId);
+    if (handler) {
+      handler({
+        editor,
+        toggleZenMode,
+        toggleTheme,
+        createNewDocument,
+        toggleCollapse,
+        selectDocument,
+        showMessage: showTemporaryMessage,
+        activeTitle,
+      });
     }
   }
 
@@ -187,16 +141,22 @@ function App() {
         }
         toolbar={
           !isZenMode ? (
-            <Toolbar
-              editor={editor}
-              saveStatus={saveStatus}
-              wordCount={wordCount}
-            />
+            <>
+              <Toolbar
+                editor={editor}
+                saveStatus={saveStatus}
+                wordCount={wordCount}
+              />
+              {toolbarSections}
+            </>
           ) : undefined
         }
         statusBar={
           activeDocumentId ? (
-            <StatusBar saveStatus={saveStatus} message={statusMessage} />
+            <>
+              <StatusBar saveStatus={saveStatus} message={statusMessage} />
+              {statusBarSections}
+            </>
           ) : undefined
         }
         isZenMode={isZenMode}

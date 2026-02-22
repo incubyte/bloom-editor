@@ -1,5 +1,5 @@
 import { useEditor, EditorContent } from "@tiptap/react";
-import { editorExtensions } from "./editorExtensions";
+import { getEditorExtensions } from "./editorExtensions";
 export { Toolbar } from "./Toolbar";
 
 interface EditorProps {
@@ -16,7 +16,7 @@ export function useEditorInstance({
 }: Omit<EditorProps, "hideToolbar">) {
   return useEditor(
     {
-      extensions: editorExtensions,
+      extensions: getEditorExtensions(),
       content: initialContent,
       onUpdate: ({ editor: e }) => {
         if (onContentUpdate) {

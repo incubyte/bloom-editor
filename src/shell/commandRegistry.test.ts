@@ -5,6 +5,7 @@ import {
   mergeDocumentCommands,
   sortByRecency,
   formatShortcut,
+  registerCommands,
 } from "./commandRegistry";
 import type { Command } from "./commandRegistry";
 
@@ -123,5 +124,24 @@ describe("commandRegistry", () => {
     const copyMarkdown = commands.find((c) => c.id === "copy-markdown");
     expect(copyMarkdown?.category).toBe("document");
     expect(copyMarkdown?.shortcut).toBeDefined();
+  });
+
+  test("registerCommands adds external commands to the registry", () => {
+    const before = getAllCommands();
+
+    registerCommands([
+      { id: "ai-suggest", label: "AI Suggest", category: "ai" },
+      { id: "ai-rewrite", label: "AI Rewrite", category: "ai" },
+    ]);
+
+    const after = getAllCommands();
+    expect(after).toHaveLength(before.length + 2);
+
+    const ids = after.map((c) => c.id);
+    expect(ids).toContain("ai-suggest");
+    expect(ids).toContain("ai-rewrite");
+
+    const aiCmd = after.find((c) => c.id === "ai-suggest");
+    expect(aiCmd?.category).toBe("ai");
   });
 });
