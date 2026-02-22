@@ -67,6 +67,7 @@ export function PostHeader({
           </div>
         )}
       </div>
+      <hr className="post-header-divider" />
     </div>
   );
 }

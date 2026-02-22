@@ -68,17 +68,21 @@
 .canvas-content {
   width: 100%;
   max-width: var(--canvas-max-width);
-  padding: var(--space-xl) var(--space-2xl) var(--space-2xl);
+  padding: 48px 48px 64px;
 }
 
 /* Tiptap editor styling */
 .canvas-content .tiptap {
   font-family: var(--font-editor);
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.6;
   color: var(--text-primary);
   outline: none;
   min-height: 60vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  caret-color: var(--accent);
 }
 
 /* The editor is always focused when writing — suppress the focus ring on it */
@@ -88,7 +92,12 @@
 }
 
 .canvas-content .tiptap p {
-  margin: 0 0 var(--space-lg);
+  margin-top: 0;
+  margin-bottom: 0.75em;
+}
+
+.canvas-content .tiptap ::selection {
+  background: var(--accent-subtle);
 }
 
 .canvas-content .tiptap h1,
@@ -102,34 +111,41 @@
   font-size: 28px;
   font-weight: 700;
   line-height: 1.25;
-  margin: var(--space-2xl) 0 var(--space-md);
+  letter-spacing: -0.3px;
+  margin: 48px 0 20px;
 }
 
 .canvas-content .tiptap h2 {
   font-size: 24px;
   font-weight: 600;
   line-height: 1.3;
-  margin: var(--space-xl) 0 var(--space-md);
+  letter-spacing: -0.15px;
+  margin: 32px 0 16px;
 }
 
 .canvas-content .tiptap h3 {
   font-size: 20px;
   font-weight: 600;
   line-height: 1.35;
-  margin: var(--space-xl) 0 var(--space-md);
+  margin: 32px 0 12px;
 }
 
 .canvas-content .tiptap blockquote {
   border-left: 3px solid var(--accent);
-  padding-left: var(--space-md);
+  padding-left: 20px;
   margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 24px;
   color: var(--text-secondary);
+  font-style: italic;
 }
 
 .canvas-content .tiptap pre {
   background-color: var(--bg-tertiary);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  padding: var(--space-md);
+  padding: 16px 20px;
+  margin-bottom: 24px;
   overflow-x: auto;
 }
 
@@ -161,10 +177,29 @@
 .canvas-content .tiptap ul,
 .canvas-content .tiptap ol {
   padding-left: var(--space-lg);
+  margin-bottom: 24px;
 }
 
 .canvas-content .tiptap li {
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-sm);
+  line-height: 1.75;
+}
+
+/* Horizontal rule styling */
+.canvas-content .tiptap hr {
+  border: none;
+  height: 1px;
+  background: var(--border-default);
+  margin: 32px 0;
+}
+
+/* Strong and emphasis */
+.canvas-content .tiptap strong {
+  font-weight: 700;
+}
+
+.canvas-content .tiptap em {
+  font-style: italic;
 }
 
 /* Placeholder styling */

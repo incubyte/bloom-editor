@@ -12,6 +12,7 @@ describe("useKeyboardShortcuts", () => {
       onTogglePalette: vi.fn(),
       onNewDocument: vi.fn(),
       onToggleSidebar: vi.fn(),
+      onFocusSearch: vi.fn(),
     };
 
     renderHook(() => useKeyboardShortcuts(handlers));
@@ -28,6 +29,7 @@ describe("useKeyboardShortcuts", () => {
       onTogglePalette: vi.fn(),
       onNewDocument: vi.fn(),
       onToggleSidebar: vi.fn(),
+      onFocusSearch: vi.fn(),
     };
 
     renderHook(() => useKeyboardShortcuts(handlers));
@@ -44,6 +46,7 @@ describe("useKeyboardShortcuts", () => {
       onTogglePalette: vi.fn(),
       onNewDocument: vi.fn(),
       onToggleSidebar: vi.fn(),
+      onFocusSearch: vi.fn(),
     };
 
     renderHook(() => useKeyboardShortcuts(handlers));
@@ -69,6 +72,7 @@ describe("useKeyboardShortcuts", () => {
       onTogglePalette: vi.fn(),
       onNewDocument: vi.fn(),
       onToggleSidebar: vi.fn(),
+      onFocusSearch: vi.fn(),
     };
 
     renderHook(() => useKeyboardShortcuts(handlers));

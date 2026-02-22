@@ -1,3 +1,4 @@
+import { useRef, useImperativeHandle, forwardRef } from "react";
 import {
   Search,
   Plus,
@@ -32,7 +33,11 @@ interface SidebarProps {
   onToggleCollapse: () => void;
 }
 
-export function Sidebar({
+export interface SidebarHandle {
+  focusSearch: () => void;
+}
+
+export const Sidebar = forwardRef<SidebarHandle, SidebarProps>(function Sidebar({
   documents,
   allTags,
   activeDocumentId,
@@ -46,7 +51,15 @@ export function Sidebar({
   searchQuery,
   isCollapsed,
   onToggleCollapse,
-}: SidebarProps) {
+}, ref) {
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useImperativeHandle(ref, () => ({
+    focusSearch() {
+      searchInputRef.current?.focus();
+    },
+  }));
+
   function handleDeleteWithConfirmation(id: string, title: string) {
     if (window.confirm(`Delete "${title}"?`)) {
       onDeleteDocument(id);
@@ -85,13 +98,15 @@ export function Sidebar({
       <div className="sidebar-search">
         <Search size={14} className="sidebar-search-icon" />
         <input
+          ref={searchInputRef}
           type="text"
           className="sidebar-search-input"
-          placeholder="Search documents..."
+          placeholder="Search notes..."
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          aria-label="Search documents"
+          aria-label="Search notes"
         />
+        <kbd className="sidebar-search-kbd">⌘S</kbd>
       </div>
 
       <div className="sidebar-tags">
@@ -179,4 +194,4 @@ export function Sidebar({
       </div>
     </aside>
   );
-}
+});

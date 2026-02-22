@@ -4,6 +4,7 @@ interface ShortcutHandlers {
   onTogglePalette: () => void;
   onNewDocument: () => void;
   onToggleSidebar: () => void;
+  onFocusSearch: () => void;
 }
 
 interface KeyboardShortcut {
@@ -47,6 +48,11 @@ export function useKeyboardShortcuts(handlers: ShortcutHandlers) {
       if (e.key === "k") {
         e.preventDefault();
         handlers.onTogglePalette();
+        return;
+      }
+      if (e.key === "s") {
+        e.preventDefault();
+        handlers.onFocusSearch();
         return;
       }
       if (e.key === "n") {

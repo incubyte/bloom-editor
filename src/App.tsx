@@ -1,6 +1,7 @@
-import { useEffect, useState, useMemo, useCallback } from "react";
+import { useEffect, useState, useMemo, useCallback, useRef } from "react";
 import { AppShell } from "./shell/AppShell";
 import { Sidebar } from "./editor/Sidebar";
+import type { SidebarHandle } from "./editor/Sidebar";
 import { useEditorInstance, EditorCanvas, Toolbar } from "./editor/Editor";
 import { PostHeader } from "./editor/PostHeader";
 import { StatusBar } from "./editor/StatusBar";
@@ -30,6 +31,7 @@ function App() {
   const { isZenMode, toggleZenMode, exitZenMode } = useZenMode();
   const { toggleTheme } = useTheme();
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
+  const sidebarRef = useRef<SidebarHandle>(null);
   const [statusMessage, setStatusMessage] = useState<string | undefined>();
 
   const showTemporaryMessage = useCallback((message: string) => {
@@ -86,6 +88,7 @@ function App() {
     onTogglePalette: () => setIsPaletteOpen((prev) => !prev),
     onNewDocument: createNewDocument,
     onToggleSidebar: toggleCollapse,
+    onFocusSearch: () => sidebarRef.current?.focusSearch(),
   });
 
   const commands = useMemo(() => {
@@ -140,6 +143,7 @@ function App() {
       <AppShell
         sidebar={
           <Sidebar
+            ref={sidebarRef}
             documents={sidebarDocuments}
             allTags={allTags}
             activeDocumentId={activeDocumentId}
