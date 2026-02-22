@@ -30,7 +30,7 @@
   display: block;
   width: 100%;
   font-family: var(--font-ui);
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.4;
   color: var(--text-secondary);
@@ -55,14 +55,17 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-md);
+  margin-top: 12px;
   padding-bottom: var(--space-lg);
+  margin-bottom: var(--space-xl);
   border-bottom: 1px solid var(--border-subtle);
 }
 
 .post-header-info {
   font-family: var(--font-ui);
-  font-size: 13px;
-  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-tertiary);
 }
 
 .post-header-tags {

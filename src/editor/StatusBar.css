@@ -1,7 +1,8 @@
 .status-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: var(--space-md);
   padding: var(--space-xs) var(--space-md);
   border-top: 1px solid var(--border-subtle);
   background-color: var(--bg-primary);
@@ -16,7 +17,8 @@
 
 .status-bar-indicator {
   font-family: var(--font-ui);
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 500;
 }
 
 .status-bar-indicator::before {
@@ -34,6 +36,7 @@
 
 .status-bar-format {
   font-family: var(--font-ui);
-  font-size: 12px;
+  font-size: 11px;
+  font-weight: 500;
   color: var(--text-tertiary);
 }

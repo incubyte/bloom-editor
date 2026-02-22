@@ -71,6 +71,11 @@ export function Toolbar({ editor, saveStatus, wordCount }: ToolbarProps) {
             isActive={editor.isActive("italic")}
             onClick={() => editor.chain().focus().toggleItalic().run()}
           />
+        </ToolbarGroup>
+
+        <ToolbarDivider />
+
+        <ToolbarGroup>
           <ToolbarButton
             icon={<Code size={16} />}
             label="Inline Code"
@@ -100,17 +105,22 @@ export function Toolbar({ editor, saveStatus, wordCount }: ToolbarProps) {
 
         <ToolbarGroup>
           <ToolbarButton
-            icon={<CodeSquare size={16} />}
-            label="Code Block"
-            isActive={editor.isActive("codeBlock")}
-            onClick={() => editor.chain().focus().toggleCodeBlock().run()}
-          />
-          <ToolbarButton
             icon={<Quote size={16} />}
             label="Blockquote"
             isActive={editor.isActive("blockquote")}
             onClick={() => editor.chain().focus().toggleBlockquote().run()}
           />
+          <ToolbarButton
+            icon={<CodeSquare size={16} />}
+            label="Code Block"
+            isActive={editor.isActive("codeBlock")}
+            onClick={() => editor.chain().focus().toggleCodeBlock().run()}
+          />
+        </ToolbarGroup>
+
+        <ToolbarDivider />
+
+        <ToolbarGroup>
           <ToolbarButton
             icon={<Link size={16} />}
             label="Link"

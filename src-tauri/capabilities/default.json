@@ -31,6 +31,7 @@
       "identifier": "fs:allow-exists",
       "allow": [{ "path": "$DOCUMENT/Bloom" }, { "path": "$DOCUMENT/Bloom/**" }]
     },
-    "dialog:default"
+    "dialog:default",
+    "core:window:allow-set-title"
   ]
 }

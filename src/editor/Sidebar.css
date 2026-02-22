@@ -15,7 +15,7 @@
   border: none;
   background: transparent;
   color: var(--text-secondary);
-  border-radius: var(--radius-md);
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 150ms ease, color 150ms ease;
 }
@@ -46,7 +46,7 @@
   border: none;
   background: transparent;
   color: var(--text-secondary);
-  border-radius: var(--radius-md);
+  border-radius: 4px;
   cursor: pointer;
   transition: background-color 150ms ease, color 150ms ease;
 }
@@ -110,12 +110,14 @@
   padding: 2px 8px;
   font-family: var(--font-ui);
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-secondary);
   background: transparent;
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-sm);
+  border-radius: 4px;
   cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
   transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
 }
 
@@ -147,7 +149,7 @@
   flex-direction: column;
   gap: 2px;
   width: 100%;
-  padding: var(--space-xs) var(--space-sm) var(--space-xs) calc(var(--space-sm) + 2px);
+  padding: var(--space-sm) 12px var(--space-sm) calc(12px + 2px);
   border: none;
   background: transparent;
   cursor: pointer;
@@ -162,18 +164,18 @@
 }
 
 .sidebar-item--active {
-  background-color: var(--bg-tertiary);
+  background-color: var(--bg-primary);
   border-left-color: var(--accent);
 }
 
 .sidebar-item--active .sidebar-item-title {
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-primary);
 }
 
 .sidebar-item-title {
   font-family: var(--font-ui);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 400;
   line-height: 1.4;
   color: var(--text-primary);
@@ -195,13 +197,12 @@
   display: flex;
   flex-wrap: wrap;
   gap: 3px;
-  padding: 0 var(--space-sm) 2px calc(var(--space-sm) + 4px);
+  margin-top: 2px;
 }
 
 .sidebar-item-tag {
   display: inline-flex;
   align-items: center;
-  gap: 2px;
   padding: 1px 5px;
   font-family: var(--font-ui);
   font-size: 10px;
@@ -211,58 +212,10 @@
   border-radius: var(--radius-sm);
 }
 
-.sidebar-item-tag-remove {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: none;
-  background: transparent;
-  color: var(--text-tertiary);
-  cursor: pointer;
-  border-radius: 50%;
-}
-
-.sidebar-item-tag-remove:hover {
-  color: var(--error);
-}
-
-.sidebar-add-tag-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  padding: 0;
-  border: 1px dashed var(--border-default);
-  background: transparent;
-  color: var(--text-tertiary);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: color 150ms ease, border-color 150ms ease;
-}
-
-.sidebar-add-tag-btn:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-}
-
-.sidebar-tag-input {
-  width: 60px;
-  padding: 1px 4px;
-  font-family: var(--font-ui);
-  font-size: 10px;
-  color: var(--text-primary);
-  background-color: var(--bg-primary);
-  border: 1px solid var(--border-focus);
-  border-radius: var(--radius-sm);
-  outline: none;
-}
-
-/* Delete button */
+/* Delete button — hidden by default, shown on hover */
 .sidebar-delete-btn {
   position: absolute;
-  top: var(--space-xs);
+  top: var(--space-sm);
   right: var(--space-xs);
   display: flex;
   align-items: center;
@@ -275,7 +228,12 @@
   color: var(--text-tertiary);
   border-radius: var(--radius-md);
   cursor: pointer;
-  transition: color 150ms ease, background-color 150ms ease;
+  opacity: 0;
+  transition: opacity 150ms ease, color 150ms ease, background-color 150ms ease;
+}
+
+.sidebar-list li:hover .sidebar-delete-btn {
+  opacity: 1;
 }
 
 .sidebar-delete-btn:hover {
@@ -284,24 +242,31 @@
 }
 
 /* New Post button */
-.sidebar-new-post-btn {
-  display: block;
-  width: 100%;
-  padding: var(--space-sm) var(--space-md);
-  font-family: var(--font-ui);
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--accent);
-  background: transparent;
-  border: none;
+.sidebar-new-post-footer {
+  padding: 10px 12px;
   border-top: 1px solid var(--border-subtle);
+}
+
+.sidebar-new-post-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  width: 100%;
+  padding: 7px 0;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  background: var(--accent);
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  text-align: left;
   transition: background-color 150ms ease;
 }
 
 .sidebar-new-post-btn:hover {
-  background-color: var(--bg-tertiary);
+  background-color: var(--accent-hover);
 }
 
 /* Responsive overlay on narrow windows */

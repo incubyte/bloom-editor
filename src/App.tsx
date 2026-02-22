@@ -21,6 +21,7 @@ import {
   getCommandHandler,
 } from "./shell/commandHandlers";
 import { usePluginSlots } from "./plugins/PluginContext";
+import { getCurrentWindow } from "@tauri-apps/api/window";
 
 registerCoreHandlers();
 
@@ -71,6 +72,16 @@ function App() {
   const titleWords = countWords(activeTitle);
   const wordCount = titleWords + bodyWords;
 
+  const sidebarDocuments = useMemo(
+    () =>
+      filteredDocuments.map((doc) =>
+        doc.id === activeDocumentId
+          ? { ...doc, wordCount }
+          : doc,
+      ),
+    [filteredDocuments, activeDocumentId, wordCount],
+  );
+
   useKeyboardShortcuts({
     onTogglePalette: () => setIsPaletteOpen((prev) => !prev),
     onNewDocument: createNewDocument,
@@ -119,12 +130,17 @@ function App() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isZenMode, exitZenMode]);
 
+  useEffect(() => {
+    const title = activeTitle || "Untitled";
+    getCurrentWindow().setTitle(`${title} — Bloom`).catch(() => {});
+  }, [activeTitle]);
+
   return (
     <>
       <AppShell
         sidebar={
           <Sidebar
-            documents={filteredDocuments}
+            documents={sidebarDocuments}
             allTags={allTags}
             activeDocumentId={activeDocumentId}
             onSelectDocument={selectDocument}

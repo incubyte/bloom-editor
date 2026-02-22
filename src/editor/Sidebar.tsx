@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Search,
   Plus,
@@ -6,7 +5,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Tag,
-  X,
 } from "lucide-react";
 import "./Sidebar.css";
 
@@ -15,6 +13,7 @@ export interface SidebarItem {
   title: string;
   modifiedAtLabel: string;
   tags: string[];
+  wordCount?: number;
 }
 
 interface SidebarProps {
@@ -48,33 +47,10 @@ export function Sidebar({
   isCollapsed,
   onToggleCollapse,
 }: SidebarProps) {
-  const [tagInputDocId, setTagInputDocId] = useState<string | null>(null);
-  const [tagInputValue, setTagInputValue] = useState("");
-
   function handleDeleteWithConfirmation(id: string, title: string) {
     if (window.confirm(`Delete "${title}"?`)) {
       onDeleteDocument(id);
     }
-  }
-
-  function handleAddTag(docId: string) {
-    const trimmed = tagInputValue.trim();
-    if (!trimmed) return;
-
-    const doc = documents.find((d) => d.id === docId);
-    if (!doc) return;
-
-    if (!doc.tags.includes(trimmed)) {
-      onUpdateTags(docId, [...doc.tags, trimmed]);
-    }
-    setTagInputValue("");
-    setTagInputDocId(null);
-  }
-
-  function handleRemoveTag(docId: string, tagToRemove: string) {
-    const doc = documents.find((d) => d.id === docId);
-    if (!doc) return;
-    onUpdateTags(docId, doc.tags.filter((t) => t !== tagToRemove));
   }
 
   if (isCollapsed) {
@@ -159,82 +135,48 @@ export function Sidebar({
                   aria-current={activeDocumentId === doc.id ? "page" : undefined}
                 >
                   <span className="sidebar-item-title">{doc.title || "Untitled"}</span>
-                  <span className="sidebar-item-time">{doc.modifiedAtLabel}</span>
+                  <span className="sidebar-item-time">
+                    {doc.modifiedAtLabel}
+                    {doc.wordCount != null && doc.wordCount > 0 && ` · ${doc.wordCount.toLocaleString()} words`}
+                  </span>
+                  {doc.tags.length > 0 && (
+                    <span className="sidebar-item-tags">
+                      {doc.tags.map((tag) => (
+                        <span key={tag} className="sidebar-item-tag">
+                          {tag}
+                        </span>
+                      ))}
+                    </span>
+                  )}
                 </button>
 
-                <div className="sidebar-item-tags">
-                  {doc.tags.map((tag) => (
-                    <span key={tag} className="sidebar-item-tag">
-                      {tag}
-                      <button
-                        type="button"
-                        className="sidebar-item-tag-remove"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleRemoveTag(doc.id, tag);
-                        }}
-                        aria-label={`Remove tag ${tag}`}
-                      >
-                        <X size={10} />
-                      </button>
-                    </span>
-                  ))}
-                  {tagInputDocId === doc.id ? (
-                    <input
-                      type="text"
-                      className="sidebar-tag-input"
-                      placeholder="Add tag..."
-                      value={tagInputValue}
-                      onChange={(e) => setTagInputValue(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") handleAddTag(doc.id);
-                        if (e.key === "Escape") setTagInputDocId(null);
-                      }}
-                      onBlur={() => setTagInputDocId(null)}
-                      autoFocus
-                    />
-                  ) : (
-                    <button
-                      type="button"
-                      className="sidebar-add-tag-btn"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setTagInputDocId(doc.id);
-                        setTagInputValue("");
-                      }}
-                      aria-label="Add tag"
-                    >
-                      <Plus size={10} />
-                    </button>
-                  )}
-                </div>
-
-                {activeDocumentId === doc.id && (
-                  <button
-                    type="button"
-                    className="sidebar-delete-btn"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleDeleteWithConfirmation(doc.id, doc.title);
-                    }}
-                    aria-label={`Delete ${doc.title}`}
-                  >
-                    <Trash2 size={14} />
-                  </button>
-                )}
+                <button
+                  type="button"
+                  className="sidebar-delete-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteWithConfirmation(doc.id, doc.title);
+                  }}
+                  aria-label={`Delete ${doc.title}`}
+                >
+                  <Trash2 size={14} />
+                </button>
               </li>
             ))}
           </ul>
         )}
       </nav>
 
-      <button
-        type="button"
-        className="sidebar-new-post-btn"
-        onClick={onNewDocument}
-      >
-        + New Post
-      </button>
+      <div className="sidebar-new-post-footer">
+        <button
+          type="button"
+          className="sidebar-new-post-btn"
+          onClick={onNewDocument}
+        >
+          <Plus size={14} />
+          New Post
+        </button>
+      </div>
     </aside>
   );
 }

@@ -30,7 +30,7 @@
   width: 1px;
   height: 16px;
   background-color: var(--border-subtle);
-  margin: 0 var(--space-xs);
+  margin: 0 6px;
 }
 
 .toolbar-button {
