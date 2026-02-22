@@ -1,0 +1,190 @@
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: var(--sidebar-width);
+  min-width: var(--sidebar-width);
+  background-color: var(--bg-secondary);
+  border-right: 1px solid var(--border-default);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.sidebar-header {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.sidebar-title {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin: 0;
+  letter-spacing: 0.08em;
+}
+
+.sidebar-nav {
+  padding: var(--space-sm);
+  flex: 1;
+}
+
+.sidebar-empty {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--text-tertiary);
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+  margin: 0;
+}
+
+/* Canvas (editor area) */
+.canvas {
+  flex: 1;
+  background-color: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.canvas-toolbar {
+  flex-shrink: 0;
+}
+
+.canvas-scroll {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.canvas-content {
+  width: 100%;
+  max-width: var(--canvas-max-width);
+  padding: var(--space-xl) var(--space-2xl) var(--space-2xl);
+}
+
+/* Tiptap editor styling */
+.canvas-content .tiptap {
+  font-family: var(--font-editor);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  outline: none;
+  min-height: 60vh;
+}
+
+/* The editor is always focused when writing — suppress the focus ring on it */
+.canvas-content .tiptap:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.canvas-content .tiptap p {
+  margin: 0 0 var(--space-lg);
+}
+
+.canvas-content .tiptap h1,
+.canvas-content .tiptap h2,
+.canvas-content .tiptap h3 {
+  font-family: var(--font-ui);
+  color: var(--text-primary);
+}
+
+.canvas-content .tiptap h1 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: var(--space-2xl) 0 var(--space-lg);
+}
+
+.canvas-content .tiptap h2 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: var(--space-xl) 0 var(--space-md);
+}
+
+.canvas-content .tiptap h3 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: var(--space-xl) 0 var(--space-md);
+}
+
+.canvas-content .tiptap blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: var(--space-md);
+  margin-left: 0;
+  color: var(--text-secondary);
+}
+
+.canvas-content .tiptap pre {
+  background-color: var(--bg-tertiary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+  overflow-x: auto;
+}
+
+.canvas-content .tiptap pre code {
+  font-family: var(--font-editor);
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.canvas-content .tiptap code {
+  font-family: var(--font-editor);
+  font-size: 14px;
+  background-color: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+  padding: 2px 6px;
+}
+
+.canvas-content .tiptap a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.canvas-content .tiptap a:hover {
+  color: var(--accent-hover);
+}
+
+.canvas-content .tiptap ul,
+.canvas-content .tiptap ol {
+  padding-left: var(--space-lg);
+}
+
+.canvas-content .tiptap li {
+  margin-bottom: var(--space-xs);
+}
+
+/* Placeholder styling */
+.canvas-content .tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--text-tertiary);
+  pointer-events: none;
+  height: 0;
+}
+
+/* Zen Mode */
+.app-shell--zen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background-color: var(--bg-primary);
+}
+
+.app-shell--zen .canvas {
+  height: 100vh;
+}
+
+.app-shell--zen .canvas-content {
+  padding-top: var(--space-3xl);
+}

@@ -1,0 +1,39 @@
+.status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-xs) var(--space-md);
+  border-top: 1px solid var(--border-subtle);
+  background-color: var(--bg-primary);
+  flex-shrink: 0;
+}
+
+.status-bar-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.status-bar-indicator {
+  font-family: var(--font-ui);
+  font-size: 12px;
+}
+
+.status-bar-indicator::before {
+  content: "\25CF";
+  margin-right: 4px;
+}
+
+.status-bar-indicator--saved {
+  color: var(--success);
+}
+
+.status-bar-indicator--unsaved {
+  color: var(--warning);
+}
+
+.status-bar-format {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
