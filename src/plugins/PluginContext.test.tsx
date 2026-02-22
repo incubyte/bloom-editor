@@ -1,6 +1,12 @@
-import { describe, test, expect } from "vitest";
+import { describe, test, expect, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { usePluginSlots, PluginProvider } from "./PluginContext";
+import {
+  usePluginSlots,
+  PluginProvider,
+  registerPluginSlots,
+  getRegisteredSlots,
+  clearPluginSlots,
+} from "./PluginContext";
 import type { PluginUISlots } from "./PluginContext";
 
 function SlotsDisplay() {
@@ -42,5 +48,54 @@ describe("PluginContext", () => {
     expect(screen.getByTestId("sidebar-count").textContent).toBe("1");
     expect(screen.getByTestId("toolbar-count").textContent).toBe("1");
     expect(screen.getByTestId("statusbar-count").textContent).toBe("2");
+  });
+});
+
+describe("registerPluginSlots", () => {
+  afterEach(() => clearPluginSlots());
+
+  test("getRegisteredSlots returns defaults when nothing registered", () => {
+    const slots = getRegisteredSlots();
+
+    expect(slots.sidebarPanels).toEqual([]);
+    expect(slots.toolbarSections).toEqual([]);
+    expect(slots.statusBarSections).toEqual([]);
+  });
+
+  test("registerPluginSlots merges partial slots", () => {
+    registerPluginSlots({
+      toolbarSections: [<div key="review">Review</div>],
+    });
+
+    const slots = getRegisteredSlots();
+
+    expect(slots.toolbarSections).toHaveLength(1);
+    expect(slots.sidebarPanels).toEqual([]);
+    expect(slots.statusBarSections).toEqual([]);
+  });
+
+  test("registerPluginSlots merges multiple calls", () => {
+    registerPluginSlots({
+      toolbarSections: [<div key="review">Review</div>],
+    });
+    registerPluginSlots({
+      statusBarSections: [<div key="ai">AI Status</div>],
+    });
+
+    const slots = getRegisteredSlots();
+
+    expect(slots.toolbarSections).toHaveLength(1);
+    expect(slots.statusBarSections).toHaveLength(1);
+  });
+
+  test("clearPluginSlots resets to defaults", () => {
+    registerPluginSlots({
+      toolbarSections: [<div key="review">Review</div>],
+    });
+    clearPluginSlots();
+
+    const slots = getRegisteredSlots();
+
+    expect(slots.toolbarSections).toEqual([]);
   });
 });

@@ -18,6 +18,24 @@ const defaultSlots: PluginUISlots = {
   statusBarSections: [],
 };
 
+let registeredSlots: Partial<PluginUISlots> = {};
+
+export function registerPluginSlots(slots: Partial<PluginUISlots>) {
+  registeredSlots = { ...registeredSlots, ...slots };
+}
+
+export function getRegisteredSlots(): PluginUISlots {
+  return {
+    sidebarPanels: registeredSlots.sidebarPanels ?? defaultSlots.sidebarPanels,
+    toolbarSections: registeredSlots.toolbarSections ?? defaultSlots.toolbarSections,
+    statusBarSections: registeredSlots.statusBarSections ?? defaultSlots.statusBarSections,
+  };
+}
+
+export function clearPluginSlots() {
+  registeredSlots = {};
+}
+
 const PluginContext = createContext<PluginUISlots>(defaultSlots);
 
 export function PluginProvider({

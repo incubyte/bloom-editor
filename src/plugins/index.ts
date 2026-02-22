@@ -9,6 +9,12 @@ export {
 export { registerExportFormat, getExportFormats } from "../editor/exportFormats";
 export type { ExportFormat } from "../editor/exportFormats";
 export { registerKeyboardShortcut } from "../shell/useKeyboardShortcuts";
-export { PluginProvider, usePluginSlots } from "./PluginContext";
+export {
+  PluginProvider,
+  usePluginSlots,
+  registerPluginSlots,
+  getRegisteredSlots,
+  clearPluginSlots,
+} from "./PluginContext";
 export type { SidebarPanel, PluginUISlots } from "./PluginContext";
 export type { BloomDocument } from "../storage/bloomFile";
