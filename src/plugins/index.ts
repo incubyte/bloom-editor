@@ -17,4 +17,5 @@ export {
   clearPluginSlots,
 } from "./PluginContext";
 export type { SidebarPanel, PluginUISlots } from "./PluginContext";
+export { EditorProvider, usePluginEditor } from "./EditorContext";
 export type { BloomDocument } from "../storage/bloomFile";

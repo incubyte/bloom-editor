@@ -22,6 +22,7 @@ import {
   getCommandHandler,
 } from "./shell/commandHandlers";
 import { usePluginSlots } from "./plugins/PluginContext";
+import { EditorProvider } from "./plugins/EditorContext";
 import { getCurrentWindow } from "@tauri-apps/api/window";
 
 registerCoreHandlers();
@@ -139,7 +140,7 @@ function App() {
   }, [activeTitle]);
 
   return (
-    <>
+    <EditorProvider editor={editor}>
       <AppShell
         sidebar={
           <Sidebar
@@ -200,7 +201,7 @@ function App() {
         onSelect={handleCommandSelect}
         onClose={() => setIsPaletteOpen(false)}
       />
-    </>
+    </EditorProvider>
   );
 }
 
