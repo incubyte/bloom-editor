@@ -61,8 +61,12 @@
 .canvas-scroll {
   flex: 1;
   overflow-y: auto;
+}
+
+.canvas-scroll-inner {
   display: flex;
   justify-content: center;
+  min-height: 100%;
 }
 
 .canvas-content {
@@ -75,11 +79,6 @@
   width: 280px;
   flex-shrink: 0;
   padding: 48px 16px 64px 0;
-  position: sticky;
-  top: 0;
-  align-self: flex-start;
-  overflow-y: auto;
-  max-height: 100%;
 }
 
 /* Tiptap editor styling */

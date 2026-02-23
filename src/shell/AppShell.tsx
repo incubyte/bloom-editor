@@ -26,8 +26,10 @@ export function AppShell({
       <main className="canvas">
         {toolbar && <div className="canvas-toolbar">{toolbar}</div>}
         <div className="canvas-scroll">
-          <div className="canvas-content">{children}</div>
-          {marginPanel && <aside className="canvas-margin">{marginPanel}</aside>}
+          <div className="canvas-scroll-inner">
+            <div className="canvas-content">{children}</div>
+            {marginPanel && <aside className="canvas-margin">{marginPanel}</aside>}
+          </div>
         </div>
         {statusBar}
       </main>
