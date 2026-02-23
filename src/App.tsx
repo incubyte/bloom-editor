@@ -28,7 +28,7 @@ import { getCurrentWindow } from "@tauri-apps/api/window";
 registerCoreHandlers();
 
 function App() {
-  const { toolbarSections, statusBarSections } = usePluginSlots();
+  const { toolbarSections, statusBarSections, marginPanels } = usePluginSlots();
   const { isZenMode, toggleZenMode, exitZenMode } = useZenMode();
   const { toggleTheme } = useTheme();
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
@@ -179,6 +179,7 @@ function App() {
             </>
           ) : undefined
         }
+        marginPanel={marginPanels.length > 0 ? <>{marginPanels}</> : undefined}
         isZenMode={isZenMode}
       >
         {activeDocumentId && (

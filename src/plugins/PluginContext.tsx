@@ -10,12 +10,14 @@ export interface PluginUISlots {
   sidebarPanels: SidebarPanel[];
   toolbarSections: ReactNode[];
   statusBarSections: ReactNode[];
+  marginPanels: ReactNode[];
 }
 
 const defaultSlots: PluginUISlots = {
   sidebarPanels: [],
   toolbarSections: [],
   statusBarSections: [],
+  marginPanels: [],
 };
 
 let registeredSlots: Partial<PluginUISlots> = {};
@@ -29,6 +31,7 @@ export function getRegisteredSlots(): PluginUISlots {
     sidebarPanels: registeredSlots.sidebarPanels ?? defaultSlots.sidebarPanels,
     toolbarSections: registeredSlots.toolbarSections ?? defaultSlots.toolbarSections,
     statusBarSections: registeredSlots.statusBarSections ?? defaultSlots.statusBarSections,
+    marginPanels: registeredSlots.marginPanels ?? defaultSlots.marginPanels,
   };
 }
 

@@ -5,6 +5,7 @@ interface AppShellProps {
   sidebar: ReactNode;
   toolbar?: ReactNode;
   statusBar?: ReactNode;
+  marginPanel?: ReactNode;
   children: ReactNode;
   isZenMode?: boolean;
 }
@@ -13,6 +14,7 @@ export function AppShell({
   sidebar,
   toolbar,
   statusBar,
+  marginPanel,
   children,
   isZenMode = false,
 }: AppShellProps) {
@@ -25,6 +27,7 @@ export function AppShell({
         {toolbar && <div className="canvas-toolbar">{toolbar}</div>}
         <div className="canvas-scroll">
           <div className="canvas-content">{children}</div>
+          {marginPanel && <aside className="canvas-margin">{marginPanel}</aside>}
         </div>
         {statusBar}
       </main>

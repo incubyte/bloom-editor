@@ -71,6 +71,17 @@
   padding: 48px 48px 64px;
 }
 
+.canvas-margin {
+  width: 280px;
+  flex-shrink: 0;
+  padding: 48px 16px 64px 0;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  overflow-y: auto;
+  max-height: 100%;
+}
+
 /* Tiptap editor styling */
 .canvas-content .tiptap {
   font-family: var(--font-editor);
