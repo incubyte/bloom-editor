@@ -162,14 +162,13 @@ function App() {
         }
         toolbar={
           !isZenMode ? (
-            <>
-              <Toolbar
-                editor={editor}
-                saveStatus={saveStatus}
-                wordCount={wordCount}
-              />
+            <Toolbar
+              editor={editor}
+              saveStatus={saveStatus}
+              wordCount={wordCount}
+            >
               {toolbarSections}
-            </>
+            </Toolbar>
           ) : undefined
         }
         statusBar={

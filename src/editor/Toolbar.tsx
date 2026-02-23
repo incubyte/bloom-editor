@@ -21,9 +21,10 @@ interface ToolbarProps {
   editor: Editor | null;
   saveStatus: "saved" | "unsaved";
   wordCount: number;
+  children?: ReactNode;
 }
 
-export function Toolbar({ editor, saveStatus, wordCount }: ToolbarProps) {
+export function Toolbar({ editor, saveStatus, wordCount, children }: ToolbarProps) {
   if (!editor) return null;
 
   return (
@@ -150,11 +151,9 @@ export function Toolbar({ editor, saveStatus, wordCount }: ToolbarProps) {
       </div>
 
       <div className="toolbar-right">
-        {saveStatus === "unsaved" && (
-          <span className="toolbar-unsaved">Unsaved</span>
-        )}
-        <span className="toolbar-word-count">
-          {wordCount.toLocaleString()} words
+        {children}
+        <span className={saveStatus === "unsaved" ? "toolbar-word-count toolbar-unsaved" : "toolbar-word-count"}>
+          {wordCount.toLocaleString()} words{saveStatus === "unsaved" && "*"}
         </span>
       </div>
     </div>

@@ -68,16 +68,6 @@
   cursor: not-allowed;
 }
 
-.toolbar-unsaved {
-  font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--accent);
-  padding: 2px 8px;
-  border: 1px solid var(--accent);
-  border-radius: var(--radius-sm);
-}
-
 .toolbar-word-count {
   font-family: var(--font-ui);
   font-size: 12px;
@@ -85,4 +75,9 @@
   padding: 2px 8px;
   border: 1px solid var(--border-default);
   border-radius: var(--radius-sm);
+}
+
+.toolbar-word-count.toolbar-unsaved {
+  color: var(--accent);
+  border-color: var(--accent);
 }
