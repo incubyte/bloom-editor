@@ -71,6 +71,7 @@ describe("useDocumentManager", () => {
       vi.mocked(loadDocument).mockResolvedValue({
         content: { type: "doc", content: [] },
         title: "First Doc",
+        subtitle: "",
         createdAt: "2026-01-01T00:00:00.000Z",
         modifiedAt: "2026-01-01T00:00:00.000Z",
         tags: [],
@@ -93,6 +94,7 @@ describe("useDocumentManager", () => {
       vi.mocked(loadDocument).mockResolvedValue({
         content: { type: "doc", content: [] },
         title: "Second Doc",
+        subtitle: "",
         createdAt: "2026-01-01T00:00:00.000Z",
         modifiedAt: "2026-01-01T00:00:00.000Z",
         tags: [],

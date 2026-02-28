@@ -44,6 +44,7 @@ describe("EditorContext", () => {
       sidebarPanels: [],
       toolbarSections: [<div key="t1">Toolbar</div>],
       statusBarSections: [],
+      marginPanels: [],
     };
 
     function Combined() {

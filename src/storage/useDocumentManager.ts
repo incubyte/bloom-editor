@@ -230,7 +230,7 @@ export function useDocumentManager() {
     const title =
       activeTitleRef.current ||
       extractTitle(
-        activeContentRef.current as Parameters<typeof extractTitle>[0],
+        activeContentRef.current as unknown as Parameters<typeof extractTitle>[0],
       ) ||
       "Untitled";
 

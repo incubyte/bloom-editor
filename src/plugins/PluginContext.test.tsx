@@ -37,6 +37,7 @@ describe("PluginContext", () => {
       ],
       toolbarSections: [<div key="t1">Toolbar</div>],
       statusBarSections: [<div key="s1">Status</div>, <div key="s2">Bar</div>],
+      marginPanels: [],
     };
 
     render(

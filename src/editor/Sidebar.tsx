@@ -44,7 +44,7 @@ export const Sidebar = forwardRef<SidebarHandle, SidebarProps>(function Sidebar(
   onSelectDocument,
   onNewDocument,
   onDeleteDocument,
-  onUpdateTags,
+  onUpdateTags: _onUpdateTags,
   onSearchChange,
   onTagFilterChange,
   activeTagFilter,

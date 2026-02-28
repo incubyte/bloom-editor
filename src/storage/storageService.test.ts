@@ -39,6 +39,7 @@ describe("storageService", () => {
     const doc: BloomDocument = {
       content: { type: "doc", content: [] },
       title: "My Post",
+      subtitle: "",
       createdAt: "2026-02-21T00:00:00.000Z",
       modifiedAt: "2026-02-21T01:00:00.000Z",
       tags: ["draft"],
